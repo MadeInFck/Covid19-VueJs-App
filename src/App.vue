@@ -1,60 +1,68 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
+    <v-app-bar app color="primary" dark>
+      <div class="d-flex block" justify="center">
         <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
+          alt="MadeInFck Logo"
+          class="mr-5"
+          src="/src/assets/logo.png"
+          width="256"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
+          eager
         />
       </div>
 
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>fas fa-external-link-alt</v-icon>
-      </v-btn>
+      <h1 class="text-center">Epidémie Covid-19</h1>
+      
     </v-app-bar>
-
     <v-content>
-      <HelloWorld/>
+      <Map />
+
+      <Datacard />
     </v-content>
+
+    <Footer />
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Map from "./components/Map";
+import Datacard from "./components/Datacard";
+import Footer from "./views/Footer";
+import { mapActions } from "vuex";
 
 export default {
-  name: 'App',
-
+  name: "App",
   components: {
-    HelloWorld,
+    Map,
+    Datacard,
+    Footer
   },
-
   data: () => ({
-    //
+    baseUrl: 'https://corona.lmao.ninja/'
   }),
+  methods: {
+    ...mapActions(["updateTotalData","updateCountries"]),
+    getCountries() {
+      fetch(this.baseUrl+`countries`)
+      .then(response => response.json())
+      .then( countriesData => {
+        console.log(countriesData);
+        this.$store.dispatch('updateCountries', countriesData);
+      });
+    },
+    getTotalData() {
+      fetch(this.baseUrl+`all`)
+      .then(response => response.json())
+      .then( totalData => {
+        console.log(totalData);
+        this.$store.dispatch('updateTotalData', totalData);
+      });
+    }
+  },
+  created() {
+    this.getCountries();
+    this.getTotalData();
+  }
 };
 </script>
