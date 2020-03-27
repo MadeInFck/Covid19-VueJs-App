@@ -5,8 +5,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    countries: [],
-    totalData: null
+    countriesData: [],
+    totalData: null,
+    countries: []
   },
   mutations: {
     setTotalData: (state, data) => {
@@ -14,17 +15,31 @@ export default new Vuex.Store({
     },
     setCountries: (state, data) => {
       state.countries = data;
+    },
+    setCountriesData: (state, data) => {
+      state.countriesData = data;
     }
   },
   actions: {
     updateTotalData: ({ commit }, data) => {
       commit("setTotalData", data);
-      console.log("total data updated!");
     },
     updateCountries: ({ commit }, data) => {
       commit("setCountries", data);
-      console.log("countries data updated!");
-
+    },
+    updateCountriesData: ({ commit }, data) => {
+      commit("setCountriesData", data);
+    }
+  },
+  getters: {
+    getCountriesData: state => {
+      return state.countriesData;
+    },
+    getCountries: state => {
+      return state.countries;
+    },
+    getTotalData: state => {
+      return state.totalData;
     }
   },
   modules: {}

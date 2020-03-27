@@ -1,10 +1,5 @@
 <template>
-  <v-footer
-    fluid
-    class="text-center mb-100"
-    height=100
-    id="pieddepage"
-  >
+  <v-footer fluid class="text-center mb-100" height="100" id="pieddepage">
     <!-- Réseaux sociaux -->
     <v-row align="center">
       <v-list class="mx-auto">
@@ -14,8 +9,8 @@
           </a>
         </v-list-item>
         <v-list-item class="unlisted">
-          <a href="facebook.com">
-            <i class="fab fa-facebook-f fa-2x"></i>
+          <a href="https://github.com/MadeInFck/covid-vue-leafletmap">
+            <i class="fab fa-github fa-2x"></i>
           </a>
         </v-list-item>
       </v-list>
@@ -38,8 +33,6 @@
   margin: auto auto 0;
 }
 
-
-
 i {
   color: #fff;
   margin-left: 10px;
@@ -51,12 +44,12 @@ a {
 
 a:hover,
 i:hover {
-  color: #87DB65;
+  color: #87db65;
   text-decoration: none !important;
 }
 
 .unlisted {
-    list-style: none;
-    display: inline;
+  list-style: none;
+  display: inline;
 }
 </style>
