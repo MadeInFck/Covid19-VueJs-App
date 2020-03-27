@@ -1,16 +1,16 @@
 <template>
   <v-container fluid>
-    <v-row dense align="start">
+    <v-row dense align="center">
       <v-col cols="4">
-        <v-card outlined>
+        <v-card outlined elevation=10>
           <v-card-title>
             L'épidémie dans le monde
             <v-spacer></v-spacer>
-            <v-icon large right color="green">fas fa-viruses fa-2x</v-icon>
+            <v-icon large right color="green">fas fa-ambulance fa-2x</v-icon>
           </v-card-title>
           <v-divider></v-divider>
           <v-col cols="12">
-            <v-card outlined class="mx-auto">
+            <v-card outlined class="mx-auto" elevation=20>
               <v-card-subtitle>
                 Nombre de cas : {{ worldData.cases }}
               </v-card-subtitle>
@@ -24,7 +24,7 @@
                 Total contaminé : {{ worldData.updated }}
               </v-card-subtitle>
             </v-card>
-            <v-card outlined class="mt-2">
+            <v-card outlined class="mt-2" elevation=20>
               <v-card-title>
                 <p>N'oubliez pas !</p>
               </v-card-title>
@@ -42,7 +42,7 @@
       </v-col>
 
       <v-col cols="8">
-        <v-card outlined class="mx-auto">
+        <v-card outlined class="mx-auto" elevation=10>
           <v-card-title>
             Bilan par pays
           </v-card-title>
@@ -55,29 +55,33 @@
               append-outer-icon="fas fa-search"
               :items="countries"
               label="Statistiques par pays"
+              @change="displayCountryData"
             ></v-select>
           </v-col>
           <v-col cols="12">
-            <v-card class="mt-1" outlined shaped loading>
+            <v-card class="mt-1" outlined shaped loading elevation=20>
               <v-card-title>
-                Chine
+                {{ country }}
               </v-card-title>
               <v-divider></v-divider>
               <v-row>
                 <v-col cols="6">
                   <v-card-subtitle>
-                    Nombre de cas : {{ worldData.cases }}
+                    Nombre de cas : {{ cases }}
                   </v-card-subtitle>
                   <v-card-subtitle>
-                    Décès : {{ worldData.deaths }}
+                    Décès : {{ deaths }}
                   </v-card-subtitle>
                 </v-col>
                 <v-col cols="6">
                   <v-card-subtitle>
-                    Guéris : {{ worldData.recovered }}
+                    Guéris : {{ recovered }}
                   </v-card-subtitle>
                   <v-card-subtitle>
-                    Total contaminé : {{ worldData.updated }}
+                    Décès du jour : {{ todayDeaths }}
+                  </v-card-subtitle>
+                  <v-card-subtitle>
+                    Cas du jour : {{ todayCases }}
                   </v-card-subtitle>
                 </v-col>
               </v-row>
@@ -95,7 +99,14 @@ import { mapState } from "vuex";
 export default {
   name: "Datacard",
   data() {
-    return {};
+    return {
+      country: null,
+      deaths: null,
+      recovered: null,
+      cases: null,
+      todayCases: null,
+      todayDeaths: null
+    };
   },
   computed: {
     ...mapState(["countries", "countriesData", "worldData"])
@@ -104,16 +115,31 @@ export default {
     eachCountry() {
       const data = this.countriesData;
       const array = [];
-      for (const item in data) {
+      for (const item in this.countriesData) {
         array.push(data[item].country);
       }
       this.$store.dispatch("updateCountries", array);
+      this.$forceUpdate();
     },
-    displayCountryData(event) {
-      console.log(event.target.value);
+    displayCountryData(country) {      
+      this.getCountryData(country);
+    },
+    getCountryData(id) {
+      for (const item in this.countriesData) {
+        if (this.countriesData[item].country == id) {
+          console.log(this.countriesData[item]);
+          this.country = this.countriesData[item].country;
+          this.deaths = this.countriesData[item].deaths;
+          this.cases = this.countriesData[item].cases;
+          this.todayCases = this.countriesData[item].todayCases;
+          this.todayDeaths = this.countriesData[item].todayDeaths;
+          this.recovered = this.countriesData[item].recovered;
+          console.log(this.countriesData[item].countryInfo.lat, this.countriesData[item].countryInfo.long);
+        }
+      }
     }
   },
-  updated() {
+  beforeUpdate() {
     this.eachCountry();
   }
 };
