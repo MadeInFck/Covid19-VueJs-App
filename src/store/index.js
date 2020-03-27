@@ -6,12 +6,12 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     countries: [],
-    totalData: null,
+    worldData: {},
     countriesData: []
   },
   mutations: {
-    setTotalData: (state, data) => {
-      state.totalData = data;
+    setWorldData: (state, data) => {
+      state.worldData = data;
     },
     setCountries: (state, data) => {
       state.countries = data;
@@ -21,8 +21,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    updateTotalData: ({ commit }, data) => {
-      commit("setTotalData", data);
+    updateWorldData: ({ commit }, data) => {
+      commit("setWorldData", data);
     },
     updateCountries: ({ commit }, data) => {
       commit("setCountries", data);

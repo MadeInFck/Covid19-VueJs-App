@@ -45,17 +45,15 @@ export default {
     getCountries() {
       fetch(this.baseUrl + `countries`)
         .then(response => response.json())
-        .then(countriesData => {
-          console.log(countriesData);
-          this.$store.dispatch("updateCountriesData", countriesData);
+        .then(data => {
+          this.$store.dispatch("updateCountriesData", data);
         });
     },
     getTotalData() {
       fetch(this.baseUrl + `all`)
         .then(response => response.json())
-        .then(totalData => {
-          console.log(totalData);
-          this.$store.dispatch("updateTotalData", totalData);
+        .then(data => {
+          this.$store.dispatch("updateWorldData", data);
         });
     }
   },

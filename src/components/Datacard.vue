@@ -12,16 +12,16 @@
           <v-col cols="12">
             <v-card outlined class="mx-auto">
               <v-card-subtitle>
-                Nombre de cas : {{ totalData.cases }}
+                Nombre de cas : {{ worldData.cases }}
               </v-card-subtitle>
               <v-card-subtitle>
-                Décès : {{ totalData.deaths }}
+                Décès : {{ worldData.deaths }}
               </v-card-subtitle>
               <v-card-subtitle>
-                Guéris : {{ totalData.recovered }}
+                Guéris : {{ worldData.recovered }}
               </v-card-subtitle>
               <v-card-subtitle>
-                Total contaminé : {{ totalData.updated }}
+                Total contaminé : {{ worldData.updated }}
               </v-card-subtitle>
             </v-card>
             <v-card outlined class="mt-2">
@@ -66,18 +66,18 @@
               <v-row>
                 <v-col cols="6">
                   <v-card-subtitle>
-                    Nombre de cas : {{ totalData.cases }}
+                    Nombre de cas : {{ worldData.cases }}
                   </v-card-subtitle>
                   <v-card-subtitle>
-                    Décès : {{ totalData.deaths }}
+                    Décès : {{ worldData.deaths }}
                   </v-card-subtitle>
                 </v-col>
                 <v-col cols="6">
                   <v-card-subtitle>
-                    Guéris : {{ totalData.recovered }}
+                    Guéris : {{ worldData.recovered }}
                   </v-card-subtitle>
                   <v-card-subtitle>
-                    Total contaminé : {{ totalData.updated }}
+                    Total contaminé : {{ worldData.updated }}
                   </v-card-subtitle>
                 </v-col>
               </v-row>
@@ -98,7 +98,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(["countries", "countriesData", "totalData"])
+    ...mapState(["countries", "countriesData", "worldData"])
   },
   methods: {
     eachCountry() {
@@ -118,5 +118,3 @@ export default {
   }
 };
 </script>
-
-<style></style>
