@@ -2,29 +2,29 @@
   <v-container fluid>
     <v-row dense align="start">
       <v-col cols="4">
-        <v-card outlined elevation="5">
+        <v-card outlined>
           <v-card-title>
             L'épidémie dans le monde
             <v-spacer></v-spacer>
-            <v-icon large right color="green">fa fa-ambulance fa-2x</v-icon>
+            <v-icon large right color="green">fas fa-viruses fa-2x</v-icon>
           </v-card-title>
           <v-divider></v-divider>
           <v-col cols="12">
-            <v-card outlined class="mx-auto" elevation="15">
+            <v-card outlined class="mx-auto">
               <v-card-subtitle>
-                Nombre de cas : {{ totalData.cases }}
+                Nombre de cas : {{ worldData.cases }}
               </v-card-subtitle>
               <v-card-subtitle>
-                Décès : {{ totalData.deaths }}
+                Décès : {{ worldData.deaths }}
               </v-card-subtitle>
               <v-card-subtitle>
-                Guéris : {{ totalData.recovered }}
+                Guéris : {{ worldData.recovered }}
               </v-card-subtitle>
               <v-card-subtitle>
-                Total contaminé : {{ totalData.updated }}
+                Total contaminé : {{ worldData.updated }}
               </v-card-subtitle>
             </v-card>
-            <v-card outlined class="mt-2" elevation="15">
+            <v-card outlined class="mt-2">
               <v-card-title>
                 <p>N'oubliez pas !</p>
               </v-card-title>
@@ -42,7 +42,7 @@
       </v-col>
 
       <v-col cols="8">
-        <v-card outlined class="mx-auto" elevation="15">
+        <v-card outlined class="mx-auto">
           <v-card-title>
             Bilan par pays
           </v-card-title>
@@ -53,9 +53,8 @@
               light
               outlined
               append-outer-icon="fas fa-search"
-              :items="countries"
+              :items="dropdown_items"
               label="Statistiques par pays"
-              v-on:change="displayCountryData"
             ></v-select>
           </v-col>
           <v-col cols="12">
@@ -67,18 +66,18 @@
               <v-row>
                 <v-col cols="6">
                   <v-card-subtitle>
-                    Nombre de cas : {{ totalData.cases }}
+                    Nombre de cas : {{ worldData.cases }}
                   </v-card-subtitle>
                   <v-card-subtitle>
-                    Décès : {{ totalData.deaths }}
+                    Décès : {{ worldData.deaths }}
                   </v-card-subtitle>
                 </v-col>
                 <v-col cols="6">
                   <v-card-subtitle>
-                    Guéris : {{ totalData.recovered }}
+                    Guéris : {{ worldData.recovered }}
                   </v-card-subtitle>
                   <v-card-subtitle>
-                    Total contaminé : {{ totalData.updated }}
+                    Total contaminé : {{ worldData.updated }}
                   </v-card-subtitle>
                 </v-col>
               </v-row>
@@ -91,33 +90,24 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   name: "Datacard",
   data() {
     return {
-      dropdown_items: this.countriesItem
+      dropdown_items: ["essai", "essai"]
     };
   },
   computed: {
-    ...mapState(["countries", "countriesData", "totalData"])
-  },
-  methods: {
-    eachCountry() {
-      const data = this.countriesData;
-      const array = [];
-      for (const item in data) {
-        array.push(data[item].country);
+    data: {
+      get() {
+        return this.$store.state.countries;
       }
-      this.$store.dispatch("updateCountries", array);
     },
-    displayCountryData(event) {
-      console.log(event.target.value);
+    worldData: {
+      get() {
+        return this.$store.state.totalData;
+      }
     }
-  },
-  updated() {
-    this.eachCountry();
   }
 };
 </script>
