@@ -41,8 +41,7 @@ export default {
     centerUpdate(center) {
       this.center = center;
     }
-  },
-  async created() {}
+  }
 };
 </script>
 <style></style>

@@ -13,7 +13,6 @@
       </div>
 
       <h1 class="text-center">Epidémie Covid-19</h1>
-      
     </v-app-bar>
     <v-content>
       <Map />
@@ -39,25 +38,25 @@ export default {
     Footer
   },
   data: () => ({
-    baseUrl: 'https://corona.lmao.ninja/'
+    baseUrl: "https://corona.lmao.ninja/"
   }),
   methods: {
-    ...mapActions(["updateTotalData","updateCountries"]),
+    ...mapActions(["updateTotalData", "updateCountriesData"]),
     getCountries() {
-      fetch(this.baseUrl+`countries`)
-      .then(response => response.json())
-      .then( countriesData => {
-        console.log(countriesData);
-        this.$store.dispatch('updateCountries', countriesData);
-      });
+      fetch(this.baseUrl + `countries`)
+        .then(response => response.json())
+        .then(countriesData => {
+          console.log(countriesData);
+          this.$store.dispatch("updateCountriesData", countriesData);
+        });
     },
     getTotalData() {
-      fetch(this.baseUrl+`all`)
-      .then(response => response.json())
-      .then( totalData => {
-        console.log(totalData);
-        this.$store.dispatch('updateTotalData', totalData);
-      });
+      fetch(this.baseUrl + `all`)
+        .then(response => response.json())
+        .then(totalData => {
+          console.log(totalData);
+          this.$store.dispatch("updateTotalData", totalData);
+        });
     }
   },
   created() {
