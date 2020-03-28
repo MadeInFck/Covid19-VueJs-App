@@ -1,17 +1,8 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex block" justify="center">
-        <v-img
-          alt="MadeInFck Logo"
-          class="mr-5"
-          src="/src/assets/logo.png"
-          width="256"
-          contain
-          eager
-        />
-      </div>
-
+    <v-app-bar color="primary" dark>
+      <v-icon>fas fa-certificate</v-icon>
+      <v-spacer></v-spacer>
       <h1 class="text-center">Epidémie Covid-19</h1>
     </v-app-bar>
     <v-content>

@@ -1,16 +1,16 @@
 <template>
   <v-container fluid>
     <v-row dense align="center">
-      <v-col cols="12" md="4" >
-        <v-card outlined elevation=10>
+      <v-col cols="12" md="4">
+        <v-card outlined elevation="10">
           <v-card-title>
             L'épidémie dans le monde
             <v-spacer></v-spacer>
             <v-icon large right color="green">fas fa-globe fa-2x</v-icon>
           </v-card-title>
           <v-divider></v-divider>
-          <v-col >
-            <v-card outlined class="mx-auto" elevation=20>
+          <v-col>
+            <v-card outlined class="mx-auto" elevation="20">
               <v-card-subtitle>
                 Nombre de cas : {{ worldData.cases }}
               </v-card-subtitle>
@@ -24,7 +24,7 @@
                 Total contaminé : {{ worldData.updated }}
               </v-card-subtitle>
             </v-card>
-            <v-card outlined class="mt-2" elevation=20>
+            <v-card outlined class="mt-2" elevation="20">
               <v-card-title>
                 <p>N'oubliez pas !</p>
               </v-card-title>
@@ -42,7 +42,7 @@
       </v-col>
 
       <v-col cols="12" md="8">
-        <v-card outlined class="mx-auto" elevation=10>
+        <v-card outlined class="mx-auto" elevation="10">
           <v-card-title>
             Bilan par pays
             <v-spacer></v-spacer>
@@ -61,7 +61,7 @@
             ></v-select>
           </v-col>
           <v-col>
-            <v-card class="mt-1" outlined shaped loading elevation=20>
+            <v-card class="mt-1" outlined shaped loading elevation="20">
               <v-card-title>
                 {{ country }}
               </v-card-title>
@@ -71,14 +71,10 @@
                   <v-card-subtitle>
                     Nombre de cas : {{ cases }}
                   </v-card-subtitle>
-                  <v-card-subtitle>
-                    Décès : {{ deaths }}
-                  </v-card-subtitle>
+                  <v-card-subtitle> Décès : {{ deaths }} </v-card-subtitle>
                 </v-col>
                 <v-col cols="6">
-                  <v-card-subtitle>
-                    Guéris : {{ recovered }}
-                  </v-card-subtitle>
+                  <v-card-subtitle> Guéris : {{ recovered }} </v-card-subtitle>
                   <v-card-subtitle>
                     Décès du jour : {{ todayDeaths }}
                   </v-card-subtitle>
@@ -123,7 +119,7 @@ export default {
       this.$store.dispatch("updateCountries", array);
       this.$forceUpdate();
     },
-    displayCountryData(country) {      
+    displayCountryData(country) {
       this.getCountryData(country);
     },
     getCountryData(id) {
@@ -136,7 +132,10 @@ export default {
           this.todayCases = this.countriesData[item].todayCases;
           this.todayDeaths = this.countriesData[item].todayDeaths;
           this.recovered = this.countriesData[item].recovered;
-          console.log(this.countriesData[item].countryInfo.lat, this.countriesData[item].countryInfo.long);
+          console.log(
+            this.countriesData[item].countryInfo.lat,
+            this.countriesData[item].countryInfo.long
+          );
         }
       }
     }

@@ -23,10 +23,10 @@
         </l-icon>
         <l-popup>
           <div>
-            <h3> {{ countryData.country }} </h3>
-            <h5> Nombre de cas : {{ countryData.cases }} </h5>
-            <h5> Décès : {{ countryData.deaths }} </h5>
-            <h5> Guéris : {{ countryData.recovered }} </h5>
+            <h3>{{ countryData.country }}</h3>
+            <h5>Nombre de cas : {{ countryData.cases }}</h5>
+            <h5>Décès : {{ countryData.deaths }}</h5>
+            <h5>Guéris : {{ countryData.recovered }}</h5>
           </div>
         </l-popup>
       </l-marker>
