@@ -1,6 +1,6 @@
 # covid-vue-leafletmap
 
-#Based on API [here](https://covid-19-apis.postman.com)
+# Based on API [here](https://covid-19-apis.postman.com)
 
 ## Project setup
 ```
