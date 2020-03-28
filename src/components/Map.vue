@@ -16,12 +16,19 @@
         :key="countryData.countryInfo.iso3"
         :lat-lng="[countryData.countryInfo.lat, countryData.countryInfo.long]"
       >
-        <l-icon class-name="markerClass" icon-anchor=[16,37]>
+        <l-icon class-name="markerClass" icon-anchor="[16,37]">
           <div class="headline">
             {{ countryData.cases }}
           </div>
         </l-icon>
-        <l-popup content="essai"></l-popup>
+        <l-popup>
+          <div>
+            <h3> {{ countryData.country }} </h3>
+            <h5> Nombre de cas : {{ countryData.cases }} </h5>
+            <h5> Décès : {{ countryData.deaths }} </h5>
+            <h5> Guéris : {{ countryData.recovered }} </h5>
+          </div>
+        </l-popup>
       </l-marker>
     </l-map>
   </v-container>
@@ -29,13 +36,7 @@
 
 <script>
 import { latLng } from "leaflet";
-import {
-  LMap,
-  LTileLayer,
-  LPopup,
-  LIcon,
-  LMarker
-} from "vue2-leaflet";
+import { LMap, LTileLayer, LPopup, LIcon, LMarker } from "vue2-leaflet";
 import { mapState } from "vuex";
 
 export default {
