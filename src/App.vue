@@ -1,13 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar color="primary" dark>
+    <v-app-bar app color="primary" dark>
       <v-icon>fas fa-certificate</v-icon>
-      <v-spacer></v-spacer>
-      <h1 class="text-center">Epidémie Covid-19</h1>
+      <h1 class="text-left align-center">Epidémie Covid-19</h1>
     </v-app-bar>
     <v-content>
       <Map />
-
       <Datacard />
     </v-content>
 
