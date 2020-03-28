@@ -6,7 +6,7 @@
           <v-card-title>
             L'épidémie dans le monde
             <v-spacer></v-spacer>
-            <v-icon large right color="green">fas fa-ambulance fa-2x</v-icon>
+            <v-icon large right color="green">fas fa-globe fa-2x</v-icon>
           </v-card-title>
           <v-divider></v-divider>
           <v-col >
@@ -45,6 +45,8 @@
         <v-card outlined class="mx-auto" elevation=10>
           <v-card-title>
             Bilan par pays
+            <v-spacer></v-spacer>
+            <v-icon large right color="green">fas fa-ambulance fa-2x</v-icon>
           </v-card-title>
           <v-divider></v-divider>
           <v-col cols="6" class="mt-9">

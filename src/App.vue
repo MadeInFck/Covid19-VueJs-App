@@ -46,6 +46,7 @@ export default {
       fetch(this.baseUrl + `countries`)
         .then(response => response.json())
         .then(data => {
+          console.log(data);
           this.$store.dispatch("updateCountriesData", data);
         });
     },
