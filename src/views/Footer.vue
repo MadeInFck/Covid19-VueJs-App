@@ -1,29 +1,40 @@
 <template>
-  <v-footer dark fluid class="text-center mb-100" height="100" id="pieddepage">
-    <!-- Réseaux sociaux -->
-    <v-row align="center">
-      <v-list class="mx-auto">
-        <v-list-item class="unlisted">
-          <a href="https://twitter.com/madeinfck">
-            <i class="fab fa-twitter fa-2x"></i>
-          </a>
-        </v-list-item>
-        <v-list-item class="unlisted">
-          <a href="https://github.com/MadeInFck/covid-vue-leafletmap">
-            <i class="fab fa-github fa-2x"></i>
-          </a>
-        </v-list-item>
-      </v-list>
-    </v-row>
-    <!-- pied de page du footer-->
-    <v-col cols="12" class="mb-20">
-      <p>
-        <a href="#">Mentions légales</a> |
-        <a href="#">Politique de confidentialité</a>
-      </p>
-      <p>MadeInFck | Epidémie Covid-19 | Mars 2020</p>
-    </v-col>
-  </v-footer>
+  <v-container>
+    <v-footer
+      fluid
+      class="text-center mb-100"
+      height="100"
+      id="pieddepage"
+      color="white"
+    >
+      <!-- Réseaux sociaux -->
+      <v-row align="center">
+        <v-list class="mx-auto">
+          <v-list-item class="unlisted">
+            <a href="https://twitter.com/madeinfck">
+              <i class="fab fa-twitter fa-2x"></i>
+            </a>
+          </v-list-item>
+          <v-list-item class="unlisted">
+            <a href="https://github.com/MadeInFck/covid-vue-leafletmap">
+              <i class="fab fa-github fa-2x"></i>
+            </a>
+          </v-list-item>
+        </v-list>
+      </v-row>
+      <!-- pied de page du footer-->
+      <v-col cols="12" class="mb-20">
+        <p>
+          <a href="#">Mentions légales</a> |
+          <a href="#">Politique de confidentialité</a>
+        </p>
+        <p>
+          <a href="https://www.madeinfck.com" target="_blank">MadeInFck.com</a>
+          | Epidémie Covid-19 | Mars 2020
+        </p>
+      </v-col>
+    </v-footer>
+  </v-container>
 </template>
 
 <style scoped>
@@ -34,14 +45,13 @@
 }
 
 i {
-  color: #fff;
+  color: rgb(31, 29, 29);
   margin-left: 10px;
 }
 
 a {
-  color: rgb(118, 149, 235);
+  text-decoration: none !important;
 }
-
 a:hover,
 i:hover {
   color: #87db65;
@@ -51,5 +61,9 @@ i:hover {
 .unlisted {
   list-style: none;
   display: inline;
+}
+
+.theme--light.v-footer {
+  background-color: #fff !important;
 }
 </style>

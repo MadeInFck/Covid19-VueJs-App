@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row dense align="center">
-      <v-col cols="4">
+      <v-col cols="12" md="4" >
         <v-card outlined elevation=10>
           <v-card-title>
             L'épidémie dans le monde
@@ -9,7 +9,7 @@
             <v-icon large right color="green">fas fa-ambulance fa-2x</v-icon>
           </v-card-title>
           <v-divider></v-divider>
-          <v-col cols="12">
+          <v-col >
             <v-card outlined class="mx-auto" elevation=20>
               <v-card-subtitle>
                 Nombre de cas : {{ worldData.cases }}
@@ -41,7 +41,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="8">
+      <v-col cols="12" md="8">
         <v-card outlined class="mx-auto" elevation=10>
           <v-card-title>
             Bilan par pays
@@ -58,7 +58,7 @@
               @change="displayCountryData"
             ></v-select>
           </v-col>
-          <v-col cols="12">
+          <v-col>
             <v-card class="mt-1" outlined shaped loading elevation=20>
               <v-card-title>
                 {{ country }}
