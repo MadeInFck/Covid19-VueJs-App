@@ -7,7 +7,7 @@
             Données graphiques par pays
           </v-card-title>
           <v-spacer></v-spacer>
-          <v-col cols="4" class="mt-2">
+          <v-col cols="12" md="6" class="mt-2">
             <v-select
               autofocus
               light

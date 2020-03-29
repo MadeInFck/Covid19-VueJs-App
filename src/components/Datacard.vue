@@ -49,12 +49,12 @@
             <v-icon large right color="green">fas fa-ambulance fa-2x</v-icon>
           </v-card-title>
           <v-divider></v-divider>
-          <v-col cols="6" class="mt-9">
+          <v-col cols="12" md="6" class="mt-9">
             <v-select
               autofocus
               light
               outlined
-              append-outer-icon="fas fa-search"
+              append-icon="fas fa-search"
               :items="countries"
               label="Statistiques par pays"
               @change="displayCountryData"
