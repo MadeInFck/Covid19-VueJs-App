@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     countries: [],
     worldData: {},
-    countriesData: []
+    countriesData: [],
+    historicalData: []
   },
   mutations: {
     setWorldData: (state, data) => {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     setCountriesData: (state, data) => {
       state.countriesData = data;
+    },
+    setHistoricalData: (state, data) => {
+      state.historicalData = data;
     }
   },
   actions: {
@@ -29,6 +33,9 @@ export default new Vuex.Store({
     },
     updateCountriesData: ({ commit }, data) => {
       commit("setCountriesData", data);
+    },
+    updateHistoricalData: ({ commit }, data) => {
+      commit("setHistoricalData", data);
     }
   },
   modules: {}
