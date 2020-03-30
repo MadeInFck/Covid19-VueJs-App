@@ -92,21 +92,29 @@ export default {
   methods: {
     displayCountryData(data) {
       this.options.series = [];
-
       for (const country in data) {
         for (const historical in this.historicalData) {
           if (
-            data[country].toLowerCase() ==
+            data[country] ==
               this.historicalData[historical].country ||
             data[country].toLowerCase() ==
               this.historicalData[historical].province
           ) {
+            console.log(
+              this.historicalData[historical].country,
+              this.historicalData[historical].province,
+              data[country]
+            );
+
             const values = Object.values(
               this.historicalData[historical].timeline.cases
             );
             const province = this.historicalData[historical].province;
             let name = data[country];
-            if (province != null || this.historicalData[historical].country == null) {
+            if (
+              province != null &&
+              this.historicalData[historical].country == null
+            ) {
               name += " " + province;
             }
             this.options.series.push({ name: name, data: values });

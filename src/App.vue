@@ -56,7 +56,6 @@ export default {
       fetch(this.baseUrl + `v2/historical`)
         .then(response => response.json())
         .then(data => {
-          console.log(data);
           this.$store.dispatch("updateHistoricalData", data);
         });
     }
