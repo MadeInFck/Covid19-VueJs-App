@@ -74,7 +74,10 @@ export default {
       legend: {
         layout: "vertical",
         align: "right",
-        verticalAlign: "middle"
+        verticalAlign: "middle",
+        title: {
+          text: ""
+        }
       },
 
       plotOptions: {
@@ -91,6 +94,12 @@ export default {
   },
   methods: {
     displayCountryData(data) {
+      if (data.length == 0) {
+        this.options.legend.title.text = ""
+      } else {
+        this.options.legend.title.text = "Sélectionnez les données :"
+      }
+
       this.options.series = [];
       for (const country in data) {
         for (const historical in this.historicalData) {
@@ -112,8 +121,7 @@ export default {
             const province = this.historicalData[historical].province;
             let name = data[country];
             if (
-              province != null &&
-              this.historicalData[historical].country == null
+              province != null 
             ) {
               name += " " + province;
             }
