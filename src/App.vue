@@ -19,7 +19,7 @@ import Map from "./components/Map";
 import Datacard from "./components/Datacard";
 import ChartData from "./components/Chart";
 import Footer from "./views/Footer";
-import { mapActions } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "App",
@@ -29,41 +29,21 @@ export default {
     ChartData,
     Footer
   },
-  data: () => ({
-    baseUrl: "https://corona.lmao.ninja/"
-  }),
+  data: () => ({}),
+  computed: {
+    ...mapState(["baseUrl"])
+  },
   methods: {
-    ...mapActions([
-      "updateTotalData",
-      "updateCountriesData",
-      "updateHistoricalData"
-    ]),
-    getCountries() {
-      fetch(this.baseUrl + `countries`)
-        .then(response => response.json())
-        .then(data => {
-          this.$store.dispatch("updateCountriesData", data);
-        });
-    },
-    getTotalData() {
-      fetch(this.baseUrl + `all`)
+    getWorldData() {
+      fetch(this.baseUrl + `summary`)
         .then(response => response.json())
         .then(data => {
           this.$store.dispatch("updateWorldData", data);
         });
-    },
-    getHistoricalData() {
-      fetch(this.baseUrl + `v2/historical`)
-        .then(response => response.json())
-        .then(data => {
-          this.$store.dispatch("updateHistoricalData", data);
-        });
     }
   },
   created() {
-    this.getCountries();
-    this.getTotalData();
-    this.getHistoricalData();
+    this.getWorldData();
   }
 };
 </script>

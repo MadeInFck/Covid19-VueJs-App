@@ -12,21 +12,21 @@
     >
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
       <l-marker
-        v-for="countryData in countriesData"
-        :key="countryData.countryInfo.iso3"
-        :lat-lng="[countryData.countryInfo.lat, countryData.countryInfo.long]"
+        v-for="data in mapData"
+        :key="data.Country"
+        :lat-lng="[data.Lat, data.Lon]"
       >
         <l-icon class-name="markerClass" icon-anchor="[16,37]">
           <div class="headline">
-            {{ countryData.cases }}
+            {{ data.Active }}
           </div>
         </l-icon>
         <l-popup>
           <div>
-            <h3>{{ countryData.country }}</h3>
-            <h5>Nombre de cas : {{ countryData.cases }}</h5>
-            <h5>Décès : {{ countryData.deaths }}</h5>
-            <h5>Guéris : {{ countryData.recovered }}</h5>
+            <h3>{{ data.Country }}</h3>
+            <h5>Nombre de cas confirmés : {{ data.Confirmed }}</h5>
+            <h5>Décès : {{ data.Deaths }}</h5>
+            <h5>Guéris : {{ data.Recovered }}</h5>
           </div>
         </l-popup>
       </l-marker>
@@ -49,7 +49,8 @@ export default {
     LMarker
   },
   data: () => ({
-    zoom: 3,
+    mapData: [],
+    zoom: 2,
     center: latLng(46.480881362452685, 0.8580741496577595),
     circle: {
       center: [46, 2]
@@ -62,7 +63,7 @@ export default {
       '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }),
   computed: {
-    ...mapState(["countriesData"])
+    ...mapState(["mapSlugs", "baseUrl"])
   },
   methods: {
     zoomUpdate(zoom) {
@@ -70,6 +71,22 @@ export default {
     },
     centerUpdate(center) {
       this.center = center;
+    },
+    getCoords(code) {
+      fetch(this.baseUrl + `dayone/country/` + code)
+        .then(response => response.json())
+        .then(data => {
+          this.mapData.push(data.splice(-1)[0]);
+          console.log(this.mapData);
+        });
+    }
+  },
+  watch: {
+    "$store.state.mapSlugs": function(slugs) {
+      this.mapData = [];
+      for (let slug in slugs) {
+        this.getCoords(slugs[slug]);
+      }
     }
   }
 };

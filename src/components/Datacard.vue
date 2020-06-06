@@ -12,16 +12,16 @@
           <v-col>
             <v-card outlined class="mx-auto" elevation="20">
               <v-card-subtitle>
-                Nombre de cas : {{ worldData.cases }}
+                Nombre de cas : {{ worldData.NewConfirmed }}
               </v-card-subtitle>
               <v-card-subtitle>
-                Décès : {{ worldData.deaths }}
+                Décès : {{ worldData.TotalDeaths }}
               </v-card-subtitle>
               <v-card-subtitle>
-                Guéris : {{ worldData.recovered }}
+                Guéris : {{ worldData.TotalRecovered }}
               </v-card-subtitle>
               <v-card-subtitle>
-                Total contaminé : {{ worldData.updated }}
+                Total contaminé : {{ worldData.TotalConfirmed }}
               </v-card-subtitle>
             </v-card>
             <v-card outlined class="mt-2" elevation="20">
@@ -69,17 +69,14 @@
               <v-row>
                 <v-col cols="6">
                   <v-card-subtitle>
-                    Nombre de cas : {{ cases }}
+                    Nombre de cas confirmés : {{ confirmed }}
                   </v-card-subtitle>
                   <v-card-subtitle> Décès : {{ deaths }} </v-card-subtitle>
                 </v-col>
                 <v-col cols="6">
                   <v-card-subtitle> Guéris : {{ recovered }} </v-card-subtitle>
                   <v-card-subtitle>
-                    Décès du jour : {{ todayDeaths }}
-                  </v-card-subtitle>
-                  <v-card-subtitle>
-                    Cas du jour : {{ todayCases }}
+                    Nombre de cas actifs : {{ active }}
                   </v-card-subtitle>
                 </v-col>
               </v-row>
@@ -98,50 +95,39 @@ export default {
   name: "Datacard",
   data() {
     return {
+      countryData: null,
       country: null,
       deaths: null,
       recovered: null,
-      cases: null,
-      todayCases: null,
-      todayDeaths: null
+      confirmed: null,
+      active: null
     };
   },
   computed: {
-    ...mapState(["countries", "countriesData", "worldData"])
+    ...mapState(["countries", "slugs", "worldData", "baseUrl"])
   },
   methods: {
-    eachCountry() {
-      const data = this.countriesData;
-      const array = [];
-      for (const item in this.countriesData) {
-        array.push(data[item].country);
-      }
-      this.$store.dispatch("updateCountries", array);
-      this.$forceUpdate();
-    },
     displayCountryData(country) {
-      this.getCountryData(country);
-    },
-    getCountryData(id) {
-      for (const item in this.countriesData) {
-        if (this.countriesData[item].country == id) {
-          console.log(this.countriesData[item]);
-          this.country = this.countriesData[item].country;
-          this.deaths = this.countriesData[item].deaths;
-          this.cases = this.countriesData[item].cases;
-          this.todayCases = this.countriesData[item].todayCases;
-          this.todayDeaths = this.countriesData[item].todayDeaths;
-          this.recovered = this.countriesData[item].recovered;
-          console.log(
-            this.countriesData[item].countryInfo.lat,
-            this.countriesData[item].countryInfo.long
-          );
+      let slug = "";
+      this.country = country;
+      for (let item in this.countries) {
+        if (this.countries[item] == country) {
+          slug = this.slugs[item];
         }
       }
+      this.getCountryData(slug);
+    },
+    getCountryData(slug) {
+      fetch(this.baseUrl + `total/country/` + slug)
+        .then(response => response.json())
+        .then(data => {
+          this.countryData = data.slice(-1)[0];
+          this.deaths = this.countryData.Deaths;
+          this.recovered = this.countryData.Recovered;
+          this.confirmed = this.countryData.Confirmed;
+          this.active = this.countryData.Active;
+        });
     }
-  },
-  beforeUpdate() {
-    this.eachCountry();
   }
 };
 </script>

@@ -37,14 +37,15 @@ export default {
     Chart
   },
   data: () => ({
+    mapSlugs: [],
     Highcharts: Highcharts,
     options: {
       title: {
-        text: "Historique des données de l'épidémie Covid-19"
+        text: "Historique des cas actifs de l'épidémie Covid-19"
       },
 
       subtitle: {
-        text: "Source: https://www.worldometers.info/coronavirus/"
+        text: "Source: https://api.covid19api.com"
       },
 
       yAxis: {
@@ -90,45 +91,38 @@ export default {
     }
   }),
   computed: {
-    ...mapState(["countries", "historicalData"])
+    ...mapState(["countries", "slugs", "baseUrl"])
   },
   methods: {
-    displayCountryData(data) {
-      if (data.length == 0) {
-        this.options.legend.title.text = ""
-      } else {
-        this.options.legend.title.text = "Sélectionnez les données :"
-      }
-
+    displayCountryData(country) {
       this.options.series = [];
-      for (const country in data) {
-        for (const historical in this.historicalData) {
-          if (
-            data[country] ==
-              this.historicalData[historical].country ||
-            data[country].toLowerCase() ==
-              this.historicalData[historical].province
-          ) {
-            console.log(
-              this.historicalData[historical].country,
-              this.historicalData[historical].province,
-              data[country]
-            );
-
-            const values = Object.values(
-              this.historicalData[historical].timeline.cases
-            );
-            const province = this.historicalData[historical].province;
-            let name = data[country];
-            if (
-              province != null 
-            ) {
-              name += " " + province;
-            }
-            this.options.series.push({ name: name, data: values });
-          }
+      this.mapSlugs = [];
+      for (let item in country) {
+        this.addData(country[item]);
+      }
+      this.$store.dispatch("updateMapSlugs", this.mapSlugs);
+    },
+    getSlug(country) {
+      let index = null;
+      for (let item in this.countries) {
+        if (this.countries[item] == country) {
+          index = item;
         }
       }
+      return this.slugs[index];
+    },
+    addData(country) {
+      const slug = this.getSlug(country);
+      this.mapSlugs.push(slug);
+      fetch(this.baseUrl + `total/country/` + slug)
+        .then(response => response.json())
+        .then(data => {
+          let values = [];
+          for (const day in data) {
+            values.push(data[day].Active);
+          }
+          this.options.series.push({ name: country, data: values });
+        });
     }
   }
 };
